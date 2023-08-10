@@ -8,7 +8,6 @@ const template = document.querySelector("#list-item-template");
 let todos = LoadTodos();
 todos.forEach(RenderTodo);
 
-//Handle submittion on form
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -28,7 +27,6 @@ form.addEventListener("submit", (e) => {
   todoInput.value = "";
 });
 
-//Handle if Todo is completed
 list.addEventListener("change", (e) => {
   if (!e.target.matches("[data-list-item-checkbox]")) return;
 
@@ -39,7 +37,6 @@ list.addEventListener("change", (e) => {
   SaveTodo();
 });
 
-//Handle Todo deletion
 list.addEventListener("click", (e) => {
   if (!e.target.matches("[data-button-delete]")) return;
 
@@ -49,8 +46,6 @@ list.addEventListener("click", (e) => {
   todos = todos.filter((todo) => todo.id !== todoId);
   SaveTodo();
 });
-
-/* ---------- Rendering Todo BEGIN ---------- */
 
 function RenderTodo(newTodo) {
   const templateClone = template.content.cloneNode(true);
@@ -67,12 +62,10 @@ function RenderTodo(newTodo) {
   list.appendChild(templateClone);
 }
 
-//Saving Todos
 function SaveTodo() {
   localStorage.setItem(TODOS_STORAGE_KEY, JSON.stringify(todos));
 }
 
-//Loading Todos
 function LoadTodos() {
   const todosString = localStorage.getItem(TODOS_STORAGE_KEY);
   return JSON.parse(todosString) || [];
